@@ -1,0 +1,178 @@
+body {
+    background-color: #2d6cc4;
+    padding-bottom: 3rem; /* reserve space so footer won't cover content */
+}
+
+
+.taco-header {
+    color: orange;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    text-align: center;
+}
+
+h3 {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.heading {
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    gap: 0.5rem;
+}
+
+.heading h1 {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+#logo {
+    width: 60px;
+    height: 70px;
+    object-fit: contain;
+    align-self: center;
+}
+
+/* roman */
+.roman {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    gap: 1rem;
+    align-items: start;
+}
+
+
+.roman img {
+    width: 140px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 6px;
+    grid-column: 1;
+    grid-row: 1 / span 2; 
+}
+
+.roman h1 {
+    margin: 0;
+    grid-column: 2;
+    grid-row: 1;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.roman p {
+    margin: 0;
+    grid-column: 2;
+    grid-row: 2;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* olivia */
+.olivia {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    gap: 1rem;
+    align-items: start;
+}
+
+.olivia img {
+    width: 140px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 6px;
+    grid-column: 1;
+    grid-row: 1 / span 2; 
+}
+
+.olivia h1 {
+    margin: 0;
+    grid-column: 2;
+    grid-row: 1;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.olivia p {
+    margin: 0;
+    grid-column: 2;
+    grid-row: 2;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Elijah */
+.elijah {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    gap: 1rem;
+    align-items: start;
+}
+
+.elijah img {
+    width: 140px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 6px;
+    grid-column: 1;
+    grid-row: 1 / span 2; 
+}
+
+.elijah h1 {
+    margin: 0;
+    grid-column: 2;
+    grid-row: 1;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.elijah p {
+    margin: 0;
+    grid-column: 2;
+    grid-row: 2;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ben */
+.ben {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    gap: 1rem;
+    align-items: start;
+}
+
+.ben img {
+    width: 140px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 6px;
+    grid-column: 1;
+    grid-row: 1 / span 2; 
+}
+
+.ben h1 {
+    margin: 0;
+    grid-column: 2;
+    grid-row: 1;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.ben p {
+    margin: 0;
+    grid-column: 2;
+    grid-row: 2;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* trademark footer */
+.site-footer {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    text-align: center;
+    padding: 0.6rem 0;
+    background: rgba(0,0,0,0.12);
+    color: #fff;
+    font-size: 0.9rem;
+}
+
+.site-footer p {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
