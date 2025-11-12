@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taco Clicker!</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+</head>
+<body>
+    <!-- Menu Button -->
+    <button id="menu-button" class="menu-button">☰</button>
+    
+    <!-- Slide-out Menu -->
+    <nav id="side-menu" class="side-menu">
+        <button id="close-menu" class="close-button">✕</button>
+        <h2 class="upgrades-title">Upgrades</h2>
+        <div id="upgrades-container" class="upgrades-list">
+            <div class="upgrade-item">
+                <div class="upgrade-header">
+                    <h3>Double Taco</h3>
+                    <span class="upgrade-cost">100 Tacos</span>
+                </div>
+                <p class="upgrade-description">Adds 2 to click power.</p>
+                <button class="upgrade-button" data-upgrade="double">Buy</button>
+            </div>
+            
+            <div class="upgrade-item">
+                <div class="upgrade-header">
+                    <h3>Golden Taco</h3>
+                    <span class="upgrade-cost">500 Tacos</span>
+                </div>
+                <p class="upgrade-description">Each click gives 5 tacos instead of 1</p>
+                <button class="upgrade-button" data-upgrade="golden">Buy</button>
+            </div>
+            
+            <div class="upgrade-item">
+                <div class="upgrade-header">
+                    <h3>Taco Factory</h3>
+                    <span class="upgrade-cost">1000 Tacos</span>
+                </div>
+                <p class="upgrade-description">Earn 1 taco every second</p>
+                <button class="upgrade-button" data-upgrade="factory">Buy</button>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Overlay to close menu when clicked -->
+    <div id="menu-overlay" class="menu-overlay"></div>
+
+    <div class="click"> 
+        <!-- The display span is now inside the H1 -->
+        <h1>Tacos: <span id="display">0</span></h1>
+        <div class="stats-container">
+            <div class="stat-box">
+                <p class="stat-label">Click Power</p>
+                <p class="stat-value" id="click-power">1</p>
+            </div>
+            <div class="stat-box">
+                <p class="stat-label">Per Second</p>
+                <p class="stat-value" id="per-second">0</p>
+            </div>
+        </div>
+        <div class="button-wrapper">
+            <button id="click-button"> <!-- The clickable button -->
+                <img src="assets/taco.png" alt="Taco Image">
+            </button>
+        </div>
+    </div>
+
+    <!-- JavaScript goes here, after the elements it references -->
+    <script src="index.js">
+        
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,364 @@
+body {
+    background-color: #000000;
+    color: white;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: 100vh; /* Body takes full screen height */
+}
+
+h1 {
+    color: orange;
+    margin-top: 0; /* Ensures h1 is flush with the top of its parent */
+    /* Center H1 text horizontally */
+    text-align: center;
+    width: 100%;
+}
+
+h3 {
+    color: yellow;
+    margin-top: 0; /* Ensures h3 is flush with the top of its parent */
+    /* Center H3 text horizontally */
+    text-align: center;
+    width: 100%;
+}
+
+.stats-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 0 20px;
+    margin-bottom: 10px;
+}
+
+.stat-box {
+    background-color: rgba(255, 140, 0, 0.1);
+    border: 2px solid orange;
+    border-radius: 8px;
+    padding: 15px 25px;
+    text-align: center;
+    min-width: 120px;
+}
+
+.stat-label {
+    color: #ffcc00;
+    font-size: 12px;
+    margin: 0;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.stat-value {
+    color: orange;
+    font-size: 24px;
+    margin: 5px 0 0 0;
+    font-weight: bold;
+}
+
+.click {
+    display: flex;
+    flex-direction: column; /* Stacks items vertically */
+    height: 100%;            /* Fills the body height */
+    width: 100%;
+}
+
+.button-wrapper {
+    /* This wrapper takes up the remaining vertical space and centers its child */
+    flex-grow: 1;            /* Allows this div to grow and fill available space */
+    display: flex;
+    justify-content: center; /* Centers button horizontally */
+    align-items: center;     /* Centers button vertically */
+}
+
+button {
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+/* Menu Button Styling */
+.menu-button {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+    font-size: 30px;
+    color: orange;
+    background-color: rgba(0, 0, 0, 0.7);
+    border: 2px solid orange;
+    border-radius: 5px;
+    padding: 10px 15px;
+    transition: all 0.3s ease;
+}
+
+.menu-button:hover {
+    background-color: rgba(255, 140, 0, 0.2);
+    transform: scale(1.1);
+}
+
+/* Side Menu Styling */
+.side-menu {
+    position: fixed;
+    top: 0;
+    left: -300px;
+    width: 300px;
+    height: 100vh;
+    background-color: #1a1a1a;
+    border-right: 3px solid orange;
+    z-index: 999;
+    transition: left 0.4s ease;
+    padding: 20px 0;
+    overflow-y: auto;
+}
+
+.side-menu.active {
+    left: 0;
+}
+
+.close-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 28px;
+    color: orange;
+    background: none;
+    padding: 5px 10px;
+    transition: all 0.3s ease;
+}
+
+.close-button:hover {
+    transform: scale(1.2);
+    color: #ff8c00;
+}
+
+.side-menu ul {
+    list-style: none;
+    margin: 50px 0 0 0;
+    padding: 0;
+}
+
+.side-menu li {
+    margin: 0;
+    padding: 0;
+}
+
+.side-menu a {
+    display: block;
+    padding: 15px 30px;
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    transition: all 0.3s ease;
+    border-left: 4px solid transparent;
+}
+
+.side-menu a:hover {
+    background-color: rgba(255, 140, 0, 0.2);
+    border-left-color: orange;
+    padding-left: 40px;
+}
+
+/* Menu Overlay - dims background when menu is open */
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 998;
+    display: none;
+    transition: display 0.4s ease;
+}
+
+.menu-overlay.active {
+    display: block;
+}
+
+/* Upgrades Menu Styling */
+.upgrades-title {
+    color: orange;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.upgrades-list {
+    padding: 10px 15px;
+}
+
+.upgrade-item {
+    background-color: rgba(255, 140, 0, 0.1);
+    border: 2px solid orange;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+}
+
+.upgrade-item:hover {
+    background-color: rgba(255, 140, 0, 0.2);
+    transform: translateX(5px);
+}
+
+.upgrade-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.upgrade-header h3 {
+    margin: 0;
+    color: orange;
+    font-size: 16px;
+}
+
+.upgrade-cost {
+    color: #ffcc00;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.upgrade-description {
+    color: #cccccc;
+    font-size: 13px;
+    margin: 5px 0 10px 0;
+}
+
+.upgrade-button {
+    width: 100%;
+    padding: 8px;
+    background-color: orange;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.upgrade-button:hover {
+    background-color: #ff8c00;
+    transform: scale(1.05);
+}
+
+.upgrade-button:active {
+    transform: scale(0.95);
+}
+
+/* Mobile-Only Optimizations */
+@media (max-width: 768px) {
+    /* Responsive menu width on mobile */
+    .side-menu {
+        left: -80vw;
+        width: 80vw;
+        max-width: 300px;
+    }
+
+    .side-menu.active {
+        left: 0;
+    }
+
+    /* Larger menu button for easier tapping */
+    .menu-button {
+        font-size: 24px;
+        padding: 12px 18px;
+        top: 10px;
+        left: 10px;
+    }
+
+    /* Remove hover effects, enhance active states for touch */
+    .menu-button:hover {
+        background-color: rgba(0, 0, 0, 0.7);
+        transform: none;
+    }
+
+    .menu-button:active {
+        background-color: rgba(255, 140, 0, 0.3);
+        transform: scale(0.95);
+    }
+
+    /* Bigger close button */
+    .close-button {
+        font-size: 32px;
+        padding: 8px 15px;
+    }
+
+    .close-button:hover {
+        transform: none;
+    }
+
+    .close-button:active {
+        transform: scale(0.9);
+    }
+
+    /* Upgrade items - improve touch targets */
+    .upgrade-item:hover {
+        background-color: rgba(255, 140, 0, 0.1);
+        transform: none;
+    }
+
+    .upgrade-item:active {
+        background-color: rgba(255, 140, 0, 0.2);
+    }
+
+    /* Larger upgrade buttons for mobile */
+    .upgrade-button {
+        padding: 12px;
+        font-size: 16px;
+        min-height: 44px;
+    }
+
+    .upgrade-button:hover {
+        background-color: orange;
+        transform: none;
+    }
+
+    .upgrade-button:active {
+        background-color: #ff8c00;
+        transform: scale(0.95);
+    }
+
+    /* Increase main taco button size */
+    #click-button img {
+        max-width: 150px;
+        height: auto;
+    }
+
+    /* Better spacing on mobile */
+    .upgrades-list {
+        padding: 15px;
+    }
+
+    .upgrade-item {
+        padding: 18px;
+        margin-bottom: 18px;
+    }
+
+    .upgrade-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .upgrade-cost {
+        font-size: 16px;
+        margin-top: 8px;
+    }
+
+    /* Larger headings on mobile */
+    h1 {
+        font-size: 28px;
+    }
+
+    h3 {
+        font-size: 18px;
+    }
+
+    .upgrades-title {
+        font-size: 28px;
+        margin-top: 40px;
+    }
+}
