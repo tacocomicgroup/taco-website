@@ -5,16 +5,28 @@ document.addEventListener('DOMContentLoaded', function() {
     const sideMenu = document.getElementById('side-menu');
     const menuOverlay = document.getElementById('menu-overlay');
 
+    console.log('Menu elements found:', {
+        menuToggle: !!menuToggle,
+        menuClose: !!menuClose,
+        sideMenu: !!sideMenu,
+        menuOverlay: !!menuOverlay
+    });
+
     if (menuToggle && menuClose && sideMenu && menuOverlay) {
+        console.log('Setting up menu event listeners');
+        
         // Open menu
         menuToggle.addEventListener('click', function(e) {
+            console.log('Menu toggle clicked');
             e.preventDefault();
+            e.stopPropagation();
             sideMenu.classList.add('active');
             menuOverlay.classList.add('active');
         });
 
         // Close menu
         const closeMenu = () => {
+            console.log('Closing menu');
             sideMenu.classList.remove('active');
             menuOverlay.classList.remove('active');
         };
@@ -33,5 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 closeMenu();
             }
         });
+    } else {
+        console.error('Menu elements not found');
     }
 });
