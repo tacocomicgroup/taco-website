@@ -74,19 +74,19 @@ let autoClicksPerSecond = 0;
         }
 
         // Menu functionality
-        const menuButton = document.getElementById("menu-button");
+        const menuToggle = document.getElementById("menu-toggle");
         const sideMenu = document.getElementById("side-menu");
-        const closeMenu = document.getElementById("close-menu");
+        const menuClose = document.getElementById("menu-close");
         const menuOverlay = document.getElementById("menu-overlay");
 
         // Open menu when hamburger button is clicked
-        menuButton.addEventListener("click", function() {
+        menuToggle.addEventListener("click", function() {
             sideMenu.classList.add("active");
             menuOverlay.classList.add("active");
         });
 
         // Close menu when close button is clicked
-        closeMenu.addEventListener("click", function() {
+        menuClose.addEventListener("click", function() {
             sideMenu.classList.remove("active");
             menuOverlay.classList.remove("active");
         });
@@ -95,6 +95,14 @@ let autoClicksPerSecond = 0;
         menuOverlay.addEventListener("click", function() {
             sideMenu.classList.remove("active");
             menuOverlay.classList.remove("active");
+        });
+
+        // Close menu when a navigation link is clicked
+        document.querySelectorAll('.menu-nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                sideMenu.classList.remove('active');
+                menuOverlay.classList.remove('active');
+            });
         });
 
         // Upgrade functionality

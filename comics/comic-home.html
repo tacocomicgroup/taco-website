@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comics - Taco Comic Group</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <div class="heading">
+        <h1 id="taco-header">Taco Comic Group</h1>
+        <img id="logo" src="../assets/taco.png">
+        <button id="menu-toggle" class="menu-toggle">☰</button>
+    </div>
+    <hr>
+
+    <!-- Side Menu -->
+    <div id="side-menu" class="side-menu">
+        <button id="menu-close" class="menu-close">✕</button>
+        <nav class="menu-nav">
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../index.html#about">About</a></li>
+                <li><a href="../taco-game/index.html">Taco Game</a></li>
+                <li><a href="comic-home.html">Comics</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div id="menu-overlay" class="menu-overlay"></div>
+
+    <div class="About">
+        <h3>Comics Coming Soon!</h3>
+        <p>Stay tuned for amazing taco comics from the Taco Comic Group!</p>
+    </div>
+
+    <footer class="site-footer">
+        <p>© 2025 Taco Comic Group™</p>
+    </footer>
+
+    <script>
+        // Menu toggle functionality
+        const menuToggle = document.getElementById('menu-toggle');
+        const menuClose = document.getElementById('menu-close');
+        const sideMenu = document.getElementById('side-menu');
+        const menuOverlay = document.getElementById('menu-overlay');
+
+        // Open menu
+        menuToggle.addEventListener('click', () => {
+            sideMenu.classList.add('active');
+            menuOverlay.classList.add('active');
+        });
+
+        // Close menu
+        const closeMenu = () => {
+            sideMenu.classList.remove('active');
+            menuOverlay.classList.remove('active');
+        };
+
+        menuClose.addEventListener('click', closeMenu);
+        menuOverlay.addEventListener('click', closeMenu);
+
+        // Close menu when a link is clicked
+        document.querySelectorAll('.menu-nav a').forEach(link => {
+            link.addEventListener('click', closeMenu);
+        });
+    </script>
+</body>
+</html>

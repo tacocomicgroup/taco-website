@@ -8,12 +8,19 @@
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
 </head>
 <body>
-    <!-- Menu Button -->
-    <button id="menu-button" class="menu-button">☰</button>
+    <!-- Side Menu -->
+    <button id="menu-toggle" class="menu-toggle">☰</button>
     
-    <!-- Slide-out Menu -->
-    <nav id="side-menu" class="side-menu">
-        <button id="close-menu" class="close-button">✕</button>
+    <div id="side-menu" class="side-menu">
+        <button id="menu-close" class="menu-close">✕</button>
+        <nav class="menu-nav">
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../index.html#about">About</a></li>
+                <li><a href="index.html">Taco Game</a></li>
+                <li><a href="../comics/comic-home.html">Comics</a></li>
+            </ul>
+        </nav>
         <h2 class="upgrades-title">Upgrades</h2>
         <div id="upgrades-container" class="upgrades-list">
             <div class="upgrade-item">
@@ -43,7 +50,7 @@
                 <button class="upgrade-button" data-upgrade="factory">Buy</button>
             </div>
         </div>
-    </nav>
+    </div>
     
     <!-- Overlay to close menu when clicked -->
     <div id="menu-overlay" class="menu-overlay"></div>
