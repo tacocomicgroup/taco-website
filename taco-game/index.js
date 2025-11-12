@@ -73,38 +73,6 @@ let autoClicksPerSecond = 0;
             clickPowerElement.textContent = increment;
         }
 
-        // Menu functionality
-        const menuToggle = document.getElementById("menu-toggle");
-        const sideMenu = document.getElementById("side-menu");
-        const menuClose = document.getElementById("menu-close");
-        const menuOverlay = document.getElementById("menu-overlay");
-
-        // Open menu when hamburger button is clicked
-        menuToggle.addEventListener("click", function() {
-            sideMenu.classList.add("active");
-            menuOverlay.classList.add("active");
-        });
-
-        // Close menu when close button is clicked
-        menuClose.addEventListener("click", function() {
-            sideMenu.classList.remove("active");
-            menuOverlay.classList.remove("active");
-        });
-
-        // Close menu when overlay is clicked
-        menuOverlay.addEventListener("click", function() {
-            sideMenu.classList.remove("active");
-            menuOverlay.classList.remove("active");
-        });
-
-        // Close menu when a navigation link is clicked
-        document.querySelectorAll('.menu-nav a').forEach(link => {
-            link.addEventListener('click', () => {
-                sideMenu.classList.remove('active');
-                menuOverlay.classList.remove('active');
-            });
-        });
-
         // Upgrade functionality
         const upgradeButtons = document.querySelectorAll(".upgrade-button");
         

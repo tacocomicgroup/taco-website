@@ -30,16 +30,20 @@ h3 {
     position: absolute;
     right: 20px;
     background: none;
-    border: none;
+    border: 2px solid #333;
     font-size: 28px;
     cursor: pointer;
     color: #333;
-    padding: 5px 10px;
-    transition: color 0.3s ease;
+    padding: 5px 12px;
+    transition: all 0.3s ease;
+    border-radius: 4px;
+    z-index: 500;
 }
 
 .menu-toggle:hover {
     color: #ff8c00;
+    border-color: #ff8c00;
+    background: rgba(255, 140, 0, 0.1);
 }
 
 /* Side Menu */
