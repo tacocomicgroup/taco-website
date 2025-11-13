@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Story - Taco Comic Group</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .story-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .story-container h1 {
+            color: orange;
+            text-align: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 30px 0;
+        }
+
+        .story-container h2 {
+            color: #ff8c00;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin-top: 30px;
+        }
+
+        .story-container p {
+            color: #333;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .story-timeline {
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(255, 140, 0, 0.1);
+            border-left: 4px solid #ff8c00;
+            border-radius: 4px;
+        }
+
+        .story-timeline h3 {
+            color: #ff8c00;
+            margin-top: 0;
+        }
+
+        .milestone {
+            margin: 15px 0;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 4px;
+        }
+
+        .milestone-year {
+            font-weight: bold;
+            color: #ff8c00;
+        }
+    </style>
+</head>
+<body>
+    <div class="heading">
+        <h1 id="taco-header">Taco Comic Group</h1>
+        <img id="logo" src="../assets/taco.png">
+        <button id="menu-toggle" class="menu-toggle">☰</button>
+    </div>
+    <hr>
+
+    <!-- Side Menu -->
+    <div id="side-menu" class="side-menu">
+        <button id="menu-close" class="menu-close">✕</button>
+        <nav class="menu-nav">
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="index.html">Our Story</a></li>
+                <li><a href="../taco-game/index.html">Taco Game</a></li>
+                <li><a href="../comics/comic-home.html">Comics</a></li>
+                <li><a href="../index.html#contact">Contact Us</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div id="menu-overlay" class="menu-overlay"></div>
+
+    <div class="story-container">
+        <h1>Our Story</h1>
+        
+
+        <h2>How It All Started</h2>
+        <p>
+           Our small team came from a random morning at school when our teacher assigned us a writing task. Roman chose to write about
+           tacos. Me (Elijah) I have no idea why tacos but... I guess tacos.
+        </p>
+
+        <h2>Our Team</h2>
+        <p>
+            Each member of the Taco Comic Group brings unique talents to the table:
+        </p>
+        <ul style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.8;">
+            <li><strong>Roman</strong> - The founder behind the Taco Comic Group. Roman's small ideas spark big new things.</li>
+            <li><strong>Olivia</strong> -The main and major artist behind Taco Comic Group™. Olivia uses her creativity to join others.</li>
+            <li><strong>Elijah</strong> - The head of IT and programming in Taco Comic Group. He uses his skill to help other people.</li>
+            <li><strong>Ben</strong> - The writer of Taco Comic Group. Ben uses his creativity to make others feel good.</li>
+
+
+        <div class="story-timeline">
+            <h3>Our Journey</h3>
+            <div class="milestone">
+                <span class="milestone-year">The Beginning:</span> The Taco Comic Group was founded from a simple task.
+            </div>
+            <div class="milestone">
+                <span class="milestone-year">Growth:</span> Our team grew as more talented people joined our mission.
+            </div>
+            <div class="milestone">
+                <span class="milestone-year">Expansion:</span> We launched our website to share our comics and art.
+            <div class="milestone">
+                <span class="milestone-year">Today:</span> We continue to create amazing content!
+            </div>
+        </div>
+
+        <h2>Why Tacos?</h2>
+        <p>
+            Tacos show integrity. On the outside, they may seem flimsy, but they culminate an amazing power on the inside.
+        </p>
+
+        <h2>What's Next?</h2>
+        <p>
+            We have only started out journey. We aren't done. We are actively working on new comics, and Elijah is working on the web development.
+        </p>
+
+    </div>
+
+    <footer class="site-footer">
+        <p>© 2025 Taco Comic Group™</p>
+    </footer>
+
+    <script src="../menu.js"></script>
+</body>
+</html>
