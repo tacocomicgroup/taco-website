@@ -1,142 +1,221 @@
-let increment = 1;
-let clicks = 0;
-let autoClicksPerSecond = 0;
-
-        // 1. Get references to the button and the display elements
-        const clickButton = document.getElementById("click-button");
-        const displayElement = document.getElementById("display");
-        const clickPowerElement = document.getElementById("click-power");
-        const perSecondElement = document.getElementById("per-second");
-
-        // Load game data from localStorage
-        function loadGame() {
-            const savedData = localStorage.getItem("tacoGameData");
-            if (savedData) {
-                const data = JSON.parse(savedData);
-                clicks = data.clicks || 0;
-                increment = data.increment || 1;
-                autoClicksPerSecond = data.autoClicksPerSecond || 0;
-                
-                // Update UI with loaded data
-                displayElement.textContent = clicks;
-                updateClickPowerDisplay();
-                perSecondElement.textContent = autoClicksPerSecond;
-                
-                // Update upgrade button states
-                const upgradeButtons = document.querySelectorAll(".upgrade-button");
-                upgradeButtons.forEach(button => {
-                    const upgradeType = button.getAttribute("data-upgrade");
-                    if (data.purchasedUpgrades && data.purchasedUpgrades.includes(upgradeType)) {
-                        button.textContent = "Purchased";
-                        button.disabled = true;
-                        button.style.opacity = "0.5";
-                    }
-                });
-                
-                console.log("Game loaded! Tacos: " + clicks);
+// Game object to organize all game functions
+const game = {
+    // Game state
+    increment: 1,
+    clicks: 0,
+    autoClicksPerSecond: 0,
+    maxClicks: 999999999999999999999999999999999, // Decillion+ (10^33)
+    
+    // Number formatting names
+    numberNames: [
+        { value: 1e33, name: "Decillion" },
+        { value: 1e30, name: "Nonillion" },
+        { value: 1e27, name: "Octillion" },
+        { value: 1e24, name: "Septillion" },
+        { value: 1e21, name: "Sextillion" },
+        { value: 1e18, name: "Quintillion" },
+        { value: 1e15, name: "Quadrillion" },
+        { value: 1e12, name: "Trillion" },
+        { value: 1e9, name: "Billion" },
+        { value: 1e6, name: "Million" },
+        { value: 1e3, name: "Thousand" }
+    ],
+    
+    // DOM elements
+    clickButton: document.getElementById("click-button"),
+    displayElement: document.getElementById("display"),
+    clickPowerElement: document.getElementById("click-power"),
+    perSecondElement: document.getElementById("per-second"),
+    
+    // Upgrade costs
+    upgradeCosts: {
+        "double": 100,
+        "golden": 500,
+        "factory": 1000
+    },
+    
+    // Format large numbers for display
+    formatNumber(num) {
+        // For small numbers, just show them normally
+        if (num < 1000) {
+            return Math.floor(num).toString();
+        }
+        
+        // For large numbers, find the appropriate scale
+        for (let i = 0; i < this.numberNames.length; i++) {
+            const scale = this.numberNames[i];
+            if (num >= scale.value) {
+                const formatted = (num / scale.value).toFixed(2);
+                return formatted + " " + scale.name;
             }
         }
-
-        // Save game data to localStorage
-        function saveGame() {
-            const purchasedUpgrades = [];
-            document.querySelectorAll(".upgrade-button").forEach(button => {
-                if (button.disabled) {
-                    purchasedUpgrades.push(button.getAttribute("data-upgrade"));
+        
+        // Fallback to scientific notation for extremely large numbers
+        return num.toExponential(2);
+    },
+    
+    // Load game data from localStorage
+    loadGame() {
+        const savedData = localStorage.getItem("tacoGameData");
+        if (savedData) {
+            const data = JSON.parse(savedData);
+            this.clicks = data.clicks || 0;
+            this.increment = data.increment || 1;
+            this.autoClicksPerSecond = data.autoClicksPerSecond || 0;
+            
+            // Update UI with loaded data
+            this.displayElement.textContent = this.formatNumber(this.clicks);
+            this.updateClickPowerDisplay();
+            this.perSecondElement.textContent = this.formatNumber(this.autoClicksPerSecond);
+            
+            // Update upgrade button states
+            const upgradeButtons = document.querySelectorAll(".upgrade-button");
+            upgradeButtons.forEach(button => {
+                const upgradeType = button.getAttribute("data-upgrade");
+                if (data.purchasedUpgrades && data.purchasedUpgrades.includes(upgradeType)) {
+                    button.textContent = "Purchased";
+                    button.disabled = true;
+                    button.style.opacity = "0.5";
                 }
             });
-
-            const gameData = {
-                clicks: clicks,
-                increment: increment,
-                autoClicksPerSecond: autoClicksPerSecond,
-                purchasedUpgrades: purchasedUpgrades
-            };
-
-            localStorage.setItem("tacoGameData", JSON.stringify(gameData));
-            console.log("Game saved!");
+            
+            console.log("Game loaded! Tacos: " + this.clicks);
         }
+    },
+    
+    // Save game data to localStorage
+    saveGame() {
+        const purchasedUpgrades = [];
+        document.querySelectorAll(".upgrade-button").forEach(button => {
+            if (button.disabled) {
+                purchasedUpgrades.push(button.getAttribute("data-upgrade"));
+            }
+        });
 
-        // Load game on page load
-        loadGame();
-        clickButton.onclick = function() {
-            
-            clicks += increment;
-            
-            displayElement.textContent = clicks;
-            
-            saveGame();
+        const gameData = {
+            clicks: this.clicks,
+            increment: this.increment,
+            autoClicksPerSecond: this.autoClicksPerSecond,
+            purchasedUpgrades: purchasedUpgrades
         };
 
-        // Update click power display
-        function updateClickPowerDisplay() {
-            clickPowerElement.textContent = increment;
+        localStorage.setItem("tacoGameData", JSON.stringify(gameData));
+        console.log("Game saved!");
+    },
+    
+    // Handle click button
+    handleClick() {
+        // Don't allow clicks if at max
+        if (this.clicks >= this.maxClicks) {
+            console.log("Max taco limit reached!");
+            return;
         }
-
-        // Upgrade functionality
-        const upgradeButtons = document.querySelectorAll(".upgrade-button");
         
-        const upgradeCosts = {
-            "double": 100,
-            "golden": 500,
-            "factory": 1000
-        };
-
+        this.clicks += this.increment;
+        
+        // Cap clicks at maximum
+        if (this.clicks > this.maxClicks) {
+            this.clicks = this.maxClicks;
+        }
+        
+        this.displayElement.textContent = this.formatNumber(this.clicks);
+        this.saveGame();
+    },
+    
+    // Update click power display
+    updateClickPowerDisplay() {
+        this.clickPowerElement.textContent = this.formatNumber(this.increment);
+    },
+    
+    // Handle upgrade purchase
+    purchaseUpgrade(upgradeType) {
+        const cost = this.upgradeCosts[upgradeType];
+        
+        if (this.clicks >= cost) {
+            this.clicks -= cost;
+            this.displayElement.textContent = this.formatNumber(this.clicks);
+            
+            // Apply upgrade effects
+            switch(upgradeType) {
+                case "double":
+                    this.increment = 2;
+                    break;
+                case "golden":
+                    this.increment = 5;
+                    break;
+                case "factory":
+                    this.autoClicksPerSecond += 1;
+                    this.perSecondElement.textContent = this.formatNumber(this.autoClicksPerSecond);
+                    break;
+            }
+            
+            this.updateClickPowerDisplay();
+            this.saveGame();
+            return true;
+        } else {
+            alert("Not enough tacos! You need " + cost + " tacos.");
+            return false;
+        }
+    },
+    
+    // Add passive income
+    addPassiveIncome() {
+        if (this.autoClicksPerSecond > 0) {
+            // Don't add passive income if at max
+            if (this.clicks >= this.maxClicks) {
+                return;
+            }
+            
+            this.clicks += this.autoClicksPerSecond;
+            
+            // Cap clicks at maximum
+            if (this.clicks > this.maxClicks) {
+                this.clicks = this.maxClicks;
+            }
+            
+            this.displayElement.textContent = this.formatNumber(this.clicks);
+            this.saveGame();
+        }
+    },
+    
+    // Update UI display
+    updateUI() {
+        this.displayElement.textContent = this.formatNumber(this.clicks);
+        this.clickPowerElement.textContent = this.formatNumber(this.increment);
+        this.perSecondElement.textContent = this.formatNumber(this.autoClicksPerSecond);
+        console.log("UI Updated! Current tacos: " + this.clicks + ", Click Power: " + this.increment + ", Per Second: " + this.autoClicksPerSecond);
+    },
+    
+    // Initialize game
+    init() {
+        this.loadGame();
+        
+        // Setup click button
+        this.clickButton.onclick = () => this.handleClick();
+        
+        // Setup upgrade buttons
+        const upgradeButtons = document.querySelectorAll(".upgrade-button");
         upgradeButtons.forEach(button => {
-            button.addEventListener("click", function() {
-                const upgradeType = this.getAttribute("data-upgrade");
-                const cost = upgradeCosts[upgradeType];
-
-                if (clicks >= cost) {
-                    clicks -= cost;
-                    displayElement.textContent = clicks;
-
-                    // Apply upgrade effects
-                    if (upgradeType === "double") {
-                        increment = 2;
-                        updateClickPowerDisplay();
-                        this.textContent = "Purchased";
-                        this.disabled = true;
-                        this.style.opacity = "0.5";
-                    } else if (upgradeType === "golden") {
-                        increment = 5;
-                        updateClickPowerDisplay();
-                        this.textContent = "Purchased";
-                        this.disabled = true;
-                        this.style.opacity = "0.5";
-                    } else if (upgradeType === "factory") {
-                        // Auto-earn 1 taco per second
-                        autoClicksPerSecond += 1;
-                        perSecondElement.textContent = autoClicksPerSecond;
-                        this.textContent = "Purchased";
-                        this.disabled = true;
-                        this.style.opacity = "0.5";
-                    }
-                    // Save game after purchase
-                    saveGame();
-                } else {
-                    alert("Not enough tacos! You need " + cost + " tacos.");
+            button.addEventListener("click", () => {
+                const upgradeType = button.getAttribute("data-upgrade");
+                if (this.purchaseUpgrade(upgradeType)) {
+                    button.textContent = "Purchased";
+                    button.disabled = true;
+                    button.style.opacity = "0.5";
                 }
             });
         });
-
-        // Auto-increment tacos every second based on passive income
-        setInterval(() => {
-            if (autoClicksPerSecond > 0) {
-                clicks += autoClicksPerSecond;
-                displayElement.textContent = clicks;
-                saveGame();
-            }
-        }, 1000);
-
-        // updateUI function - can be called from console
-        function updateUI() {
-            displayElement.textContent = clicks;
-            updateClickPowerDisplay();
-            perSecondElement.textContent = autoClicksPerSecond;
-            console.log("UI Updated! Current tacos: " + clicks + ", Click Power: " + increment + ", Per Second: " + autoClicksPerSecond);
-        }
         
-        // Make it accessible globally for console use
-        window.updateUI = updateUI;
+        // Setup passive income timer
+        setInterval(() => this.addPassiveIncome(), 1000);
+    }
+};
 
+// Initialize game when page loads
+document.addEventListener('DOMContentLoaded', () => {
+    game.init();
+    // Make game accessible globally for console use
+    window.game = game;
+});
+
+        

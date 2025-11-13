@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
             e.stopPropagation();
             sideMenu.classList.add('active');
             menuOverlay.classList.add('active');
+            menuToggle.style.display = 'none'; // Hide the toggle button completely
         });
 
         // Close menu
@@ -29,6 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('Closing menu');
             sideMenu.classList.remove('active');
             menuOverlay.classList.remove('active');
+            menuToggle.style.display = 'block'; // Show the toggle button again
         };
 
         menuClose.addEventListener('click', closeMenu);
