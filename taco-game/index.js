@@ -5,6 +5,11 @@ const game = {
     clicks: 0,
     autoClicksPerSecond: 0,
     maxClicks: 999999999999999999999999999999999, // Decillion+ (10^33)
+    upgradeCounts: {
+        "double": 0,
+        "golden": 0,
+        "factory": 0
+    },
     
     // Number formatting names
     numberNames: [
@@ -27,11 +32,19 @@ const game = {
     clickPowerElement: document.getElementById("click-power"),
     perSecondElement: document.getElementById("per-second"),
     
-    // Upgrade costs
-    upgradeCosts: {
+    // Upgrade base costs
+    upgradeBaseCosts: {
         "double": 100,
         "golden": 500,
         "factory": 1000
+    },
+    
+    // Get current cost for an upgrade (scales with purchases)
+    getUpgradeCost(upgradeType) {
+        const baseCost = this.upgradeBaseCosts[upgradeType];
+        const count = this.upgradeCounts[upgradeType];
+        // Cost increases by 15% for each purchase
+        return Math.floor(baseCost * Math.pow(1.15, count));
     },
     
     // Format large numbers for display
@@ -62,6 +75,11 @@ const game = {
             this.clicks = data.clicks || 0;
             this.increment = data.increment || 1;
             this.autoClicksPerSecond = data.autoClicksPerSecond || 0;
+            this.upgradeCounts = data.upgradeCounts || {
+                "double": 0,
+                "golden": 0,
+                "factory": 0
+            };
             
             // Update UI with loaded data
             this.displayElement.textContent = this.formatNumber(this.clicks);
@@ -72,11 +90,10 @@ const game = {
             const upgradeButtons = document.querySelectorAll(".upgrade-button");
             upgradeButtons.forEach(button => {
                 const upgradeType = button.getAttribute("data-upgrade");
-                if (data.purchasedUpgrades && data.purchasedUpgrades.includes(upgradeType)) {
-                    button.textContent = "Purchased";
-                    button.disabled = true;
-                    button.style.opacity = "0.5";
-                }
+                const cost = this.getUpgradeCost(upgradeType);
+                const count = this.upgradeCounts[upgradeType];
+                // Show count and updated cost
+                button.textContent = `Buy (${count}) - ${cost} Tacos`;
             });
             
             console.log("Game loaded! Tacos: " + this.clicks);
@@ -85,18 +102,11 @@ const game = {
     
     // Save game data to localStorage
     saveGame() {
-        const purchasedUpgrades = [];
-        document.querySelectorAll(".upgrade-button").forEach(button => {
-            if (button.disabled) {
-                purchasedUpgrades.push(button.getAttribute("data-upgrade"));
-            }
-        });
-
         const gameData = {
             clicks: this.clicks,
             increment: this.increment,
             autoClicksPerSecond: this.autoClicksPerSecond,
-            purchasedUpgrades: purchasedUpgrades
+            upgradeCounts: this.upgradeCounts
         };
 
         localStorage.setItem("tacoGameData", JSON.stringify(gameData));
@@ -129,19 +139,22 @@ const game = {
     
     // Handle upgrade purchase
     purchaseUpgrade(upgradeType) {
-        const cost = this.upgradeCosts[upgradeType];
+        const cost = this.getUpgradeCost(upgradeType);
         
         if (this.clicks >= cost) {
             this.clicks -= cost;
             this.displayElement.textContent = this.formatNumber(this.clicks);
             
+            // Increment the upgrade count
+            this.upgradeCounts[upgradeType]++;
+            
             // Apply upgrade effects
             switch(upgradeType) {
                 case "double":
-                    this.increment = 2;
+                    this.increment += 2;
                     break;
                 case "golden":
-                    this.increment = 5;
+                    this.increment += 5;
                     break;
                 case "factory":
                     this.autoClicksPerSecond += 1;
@@ -199,11 +212,18 @@ const game = {
             button.addEventListener("click", () => {
                 const upgradeType = button.getAttribute("data-upgrade");
                 if (this.purchaseUpgrade(upgradeType)) {
-                    button.textContent = "Purchased";
-                    button.disabled = true;
-                    button.style.opacity = "0.5";
+                    // Update button to show new count and cost
+                    const cost = this.getUpgradeCost(upgradeType);
+                    const count = this.upgradeCounts[upgradeType];
+                    button.textContent = `Buy (${count}) - ${cost} Tacos`;
                 }
             });
+            
+            // Update button text with current cost and count
+            const upgradeType = button.getAttribute("data-upgrade");
+            const cost = this.getUpgradeCost(upgradeType);
+            const count = this.upgradeCounts[upgradeType];
+            button.textContent = `Buy (${count}) - ${cost} Tacos`;
         });
         
         // Setup passive income timer
